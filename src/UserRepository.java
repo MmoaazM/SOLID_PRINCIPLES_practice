@@ -1,3 +1,7 @@
 public interface UserRepository {
-    String getLocation(String userId);
+    default String  getLocation(String userId)
+    {
+        /// code here to get user repo
+        return "UE";
+    }
 }

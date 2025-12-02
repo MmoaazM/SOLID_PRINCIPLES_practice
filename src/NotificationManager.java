@@ -1,40 +1,21 @@
 public class NotificationManager {
 
-    private UserRepository userRepository;
+    private UserRepository userRepository; /// we can use this interface to make different types of repos and make services depending on it
 //    private EmailService emailService;
 //    private SlackService slackService;
 
-    public NotificationManager(UserRepository userRepository,
-                               EmailService emailService,
-                               SlackService slackService) {
+    public NotificationManager(UserRepository userRepository) {
         this.userRepository = userRepository;
-        //this.emailService = emailService;
-        // this.slackService = slackService;
     }
 
     public void process( Notification notification) {
 
-        // 1. Validation spaghetti
-//        if (notification.getType().equals("ALERT")) {
-//            if (notification.getPriority() == null) {
-//                throw new IllegalArgumentException("Alerts require priority");
-//            }
-//        } else if (notification.getType().equals("PROMOTION")) {
-//            if (notification.getExpiryDate() == null) {
-//                throw new IllegalArgumentException("Promotions require expiry date");
-//            }
-
+        /// we can seperate this code of loction in other classes to validate it (SRP)
         // GDPR logic mixed with validation
-            if (userRepository.getLocation(notification.getUserId()).equals("EU")) {
-                System.out.println("Filtered PROMOTION for EU user");return;
-           }
+//            if (userRepository.getLocation(notification.getUserId()).equals("EU")) {
+//                System.out.println("Filtered PROMOTION for EU user");return;
+//           }
 
-    // 2. Delivery logic mixed with core logic
-//        if (notification.getPreferredChannel().equals("EMAIL")) {
-//            emailService.send(notification.getTarget(), notification.renderForEmail());
-//        } else if (notification.getPreferredChannel().equals("SLACK")) {
-//            slackService.send(notification.getTarget(), notification.renderForSlack());
-//        }
         notification.SendNotification();
     }
 }
